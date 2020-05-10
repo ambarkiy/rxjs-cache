@@ -1,0 +1,13 @@
+<div fxLayout="row" fxLayoutAlign="space-around start">
+  <div>
+    <app-employes-list [employes]="youngEmployes$ | async"></app-employes-list>
+  </div>
+  <div>
+    <button mat-stroked-button (click)="refreshEmployes()">
+      Rafraîchir
+    </button>
+  </div>
+  <div>
+    <app-employes-list [employes]="oldEmployes$ | async"></app-employes-list>
+  </div>
+</div>
