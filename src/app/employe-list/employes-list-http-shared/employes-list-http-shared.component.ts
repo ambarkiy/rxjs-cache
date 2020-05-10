@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
-import { map, share, tap } from "rxjs/operators";
-import { EmployeHttpService } from "src/app/services/employe-http.service";
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { map, share, tap } from 'rxjs/operators';
+import { EmployeHttpService } from 'src/app/services/employe-http.service';
 
 const LIMIT_AGE = 50;
 @Component({
-  selector: "app-employes-list-http-shared",
-  templateUrl: "./employes-list-http-shared.component.html",
-  styleUrls: ["./employes-list-http-shared.component.scss"],
+  selector: 'app-employes-list-http-shared',
+  templateUrl: './employes-list-http-shared.component.html',
+  styleUrls: ['./employes-list-http-shared.component.scss'],
 })
 export class EmployesListHttpSharedComponent implements OnInit {
   employes$: Observable<any>;
@@ -18,8 +18,8 @@ export class EmployesListHttpSharedComponent implements OnInit {
 
   ngOnInit(): void {
     this.employes$ = this.employeHttpService.loadEmployees().pipe(
-      tap((responseData) => console.log("http request executed", responseData)),
-      map((res) => res["data"]),
+      tap((responseData) => console.log('http request executed', responseData)),
+      map((res) => res.data),
       share()
     );
 

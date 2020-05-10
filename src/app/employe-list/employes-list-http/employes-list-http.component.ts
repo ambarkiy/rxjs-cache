@@ -1,12 +1,12 @@
-import { Component, OnInit } from "@angular/core";
-import { Observable } from "rxjs";
-import { EmployeHttpService } from "src/app/services/employe-http.service";
-import { map, tap } from "rxjs/operators";
+import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { EmployeHttpService } from 'src/app/services/employe-http.service';
+import { map, tap } from 'rxjs/operators';
 
 @Component({
-  selector: "app-employes-list-http",
-  templateUrl: "./employes-list-http.component.html",
-  styleUrls: ["./employes-list-http.component.scss"],
+  selector: 'app-employes-list-http',
+  templateUrl: './employes-list-http.component.html',
+  styleUrls: ['./employes-list-http.component.scss'],
 })
 export class EmployesListHttpComponent implements OnInit {
   youngEmployes$: Observable<any>;
@@ -21,8 +21,8 @@ export class EmployesListHttpComponent implements OnInit {
   loadEmployes() {
     const httpEmployes$ = this.employeHttpService.loadEmployees();
     const employes$ = httpEmployes$.pipe(
-      tap((responseData) => console.log("http request executed", responseData)),
-      map((res) => res["data"])
+      tap((responseData) => console.log('http request executed', responseData)),
+      map((res) => res.data)
     );
 
     const LIMIT_AGE = 50;
