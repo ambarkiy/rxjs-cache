@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { tap, map, share, refCount, publish, publishReplay } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { map, publishReplay, refCount, tap } from 'rxjs/operators';
 import { EmployeHttpService } from 'src/app/services/employe-http.service';
 
 const LIMIT_AGE = 50;
@@ -20,7 +20,7 @@ export class EmployesListHttpPublishReplayRefCountComponent implements OnInit {
   ngOnInit(): void {
     this.employes$ = this.employeHttpService.loadEmployees().pipe(
       tap((responseData) => console.log('http request executed', responseData)),
-      map((res) => res.data),
+      map((res: any) => res.data),
       publishReplay(1),
       refCount()
     );
@@ -30,16 +30,12 @@ export class EmployesListHttpPublishReplayRefCountComponent implements OnInit {
 
   refreshEmployes() {
     this.youngEmployes$ = this.employes$.pipe(
-      map((employes) =>
-        employes.filter((employe) => +employe.employee_age < LIMIT_AGE)
-      ),
+      map((employes) => employes.filter((employe) => +employe.employee_age < LIMIT_AGE)),
       tap((value) => console.log(value))
     );
 
     this.oldEmployes$ = this.employes$.pipe(
-      map((employes) =>
-        employes.filter((employe) => +employe.employee_age >= LIMIT_AGE)
-      ),
+      map((employes) => employes.filter((employe) => +employe.employee_age >= LIMIT_AGE)),
       tap((value) => console.log(value))
     );
   }

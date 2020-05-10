@@ -19,7 +19,7 @@ export class EmployesListHttpMulticastingComponent implements OnInit {
   ngOnInit(): void {
     this.employes$ = this.employeHttpService.loadEmployees().pipe(
       tap((responseData) => console.log('http request executed', responseData)),
-      map((res) => res.data),
+      map((res: any) => res.data),
       multicast(new Subject())
     );
 

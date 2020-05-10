@@ -20,7 +20,7 @@ export class EmployesListHttpPublishRefCountComponent implements OnInit {
   ngOnInit(): void {
     this.employes$ = this.employeHttpService.loadEmployees().pipe(
       tap((responseData) => console.log('http request executed', responseData)),
-      map((res) => res.data),
+      map((res: any) => res.data),
       publish(),
       refCount()
     );
@@ -30,16 +30,12 @@ export class EmployesListHttpPublishRefCountComponent implements OnInit {
 
   refreshEmployes() {
     this.youngEmployes$ = this.employes$.pipe(
-      map((employes) =>
-        employes.filter((employe) => +employe.employee_age < LIMIT_AGE)
-      ),
+      map((employes) => employes.filter((employe) => +employe.employee_age < LIMIT_AGE)),
       tap((value) => console.log(value))
     );
 
     this.oldEmployes$ = this.employes$.pipe(
-      map((employes) =>
-        employes.filter((employe) => +employe.employee_age >= LIMIT_AGE)
-      ),
+      map((employes) => employes.filter((employe) => +employe.employee_age >= LIMIT_AGE)),
       tap((value) => console.log(value))
     );
   }
